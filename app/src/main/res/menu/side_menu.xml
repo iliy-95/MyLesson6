@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/add_said"
+        android:title="@string/add"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/dop_said"
+        android:icon="@android:drawable/ic_input_add"
+        android:title="@string/dop"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/eexit_said"
+        android:title="@string/exit"
+        app:showAsAction="ifRoom" />
+
+</menu>

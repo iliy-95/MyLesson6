@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/add"
+        android:icon="@drawable/ic_twotone_calculate_24"
+        android:title="@string/add"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/dop"
+        android:icon="@drawable/ic_baseline_add_task_24"
+        android:title="@string/dop"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/eexit"
+        android:iconTintMode="multiply"
+        android:title="@string/exit"
+        app:showAsAction="always" />
+
+
+</menu>

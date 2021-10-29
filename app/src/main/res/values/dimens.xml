@@ -2,4 +2,5 @@
 <resources>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="sizete">25sp</dimen>
+    <dimen name="drawer_height">50</dimen>
 </resources>

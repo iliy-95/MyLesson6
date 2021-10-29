@@ -1,12 +1,19 @@
 <resources>
-    <string name="app_name">MyLesson6</string>
+    <string name="app_name">Notes</string>
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="monday">Заметка на понедельник</string>
+    <string name="monday">Заметка на понидельник</string>
     <string name="tuesday">Заметка на вторник</string>
     <string name="wednesday">Заметка на среду</string>
     <string name="thursday">Заметка на четверг</string>
     <string name="friday">Заметка на пятницу</string>
     <string name="saturday">Заметка на субботу</string>
     <string name="sunday">Заметка на воскресение</string>
+    <string name="next">назад</string>
+    <string name="add">Калькулятор</string>
+    <string name="about_developers" > dgdfgfg</string>
+    <string name="ab">cкоро будет калькулятор</string>
+    <string name="iz">изменить</string>
+    <string name="exit">Exit</string>
+    <string name="dop">Добавить</string>
 </resources>
