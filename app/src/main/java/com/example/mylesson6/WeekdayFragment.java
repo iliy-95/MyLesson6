@@ -1,9 +1,14 @@
 package com.example.mylesson6;
 
+import static com.example.mylesson6.R.drawable.ic_launch1;
+
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -19,6 +24,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mylesson6.data.CardData;
 import com.example.mylesson6.data.CardsSource;
 import com.example.mylesson6.data.CardsSourceImpl;
 import com.example.mylesson6.ui.SocialNetworkAdapter;
@@ -32,8 +38,8 @@ public class WeekdayFragment extends Fragment {
     boolean isLandScape;
     private CardsSource data;
     private RecyclerView recyclerView;
-    private SocialNetworkAdapter noteAdapter;
     private int currentPosition = 0;
+    private SocialNetworkAdapter adapter;
 
 
     public static WeekdayFragment newInstance() {
@@ -48,20 +54,64 @@ public class WeekdayFragment extends Fragment {
        // String[] data = getResources().getStringArray(R.array.wad);
         // Получим источник данных для списка
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-        CardsSource data = new CardsSourceImpl(getResources()).init();
-        initRecyclerView(recyclerView, data,view);
+         data = new CardsSourceImpl(getResources()).init();
+        //initRecyclerView(recyclerView, data,view);
+        initView(view);
+        setHasOptionsMenu(true);
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_eng_weekday, menu);
+    }
+
+    @SuppressLint({"NonConstantResourceId", "NotifyDataSetChanged"})
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_add:
+                data.addCardData(new CardData(
+                        ic_launch1,
+                        "Заметка " + data.size(),
+                                        false));
+
+
+                adapter.notifyItemInserted(data.size() - 1);
+                recyclerView.scrollToPosition(data.size() - 1);
+                return true;
+            case R.id.action_iz:
+                data.clearCardData();
+                adapter.notifyDataSetChanged();
+                return true;
+
+
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void initView(View view) {
+        recyclerView = view.findViewById(R.id.recycler_view);
+        // Получим источник данных для списка
+        data = new CardsSourceImpl(getResources()).init();
+        initRecyclerView();
+    }
+
+
+
+
+
+
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void initRecyclerView(RecyclerView recyclerView, CardsSource data, View view) {
+    private void initRecyclerView() {
         recyclerView.setHasFixedSize(true);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
         // Установим адаптер
-        SocialNetworkAdapter adapter = new SocialNetworkAdapter(data);
+         adapter = new SocialNetworkAdapter(data);
         recyclerView.setAdapter(adapter);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(),  LinearLayoutManager.VERTICAL);
@@ -81,34 +131,7 @@ public class WeekdayFragment extends Fragment {
 
 
 
-        LinearLayout layoutView = (LinearLayout) view;
-        String[] d = getResources().getStringArray(R.array.title);
-        //При помощи этого объекта будем доставать элементы, спрятанные в item.xml
-        LayoutInflater ltInflater = getLayoutInflater();
 
-
-        for (int i = 0; i < d.length; i++){
-            String note = d[i];
-        /*TextView tv = new TextView(getContext());
-        tv.setText(note);
-        tv.setTextSize(30);
-        layoutView.addView(tv);*/
-
-            //Достаём элемент из item.xml
-            View item = ltInflater.inflate(R.layout.item, layoutView, false);
-            //Находим в этом элементе TextView
-            TextView tv = item.findViewById(R.id.edittex);
-            tv.setText(note);
-            layoutView.addView(item);
-
-
-            final int position = i;
-            tv.setOnClickListener(v -> {
-                currentPosition = position;
-                WeekdayEngNoteFragment(position);
-            });
-
-        }
 
 
     }

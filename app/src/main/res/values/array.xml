@@ -23,5 +23,14 @@
 
     </integer-array>
 
+    <array name="im">
+        <item>@drawable/ic_launch1</item>
+        <item>@drawable/ic_launch1</item>
+        <item>@drawable/ic_launch1</item>
+        <item>@drawable/ic_launch1</item>
+        <item>@drawable/ic_launch1</item>
+        <item>@drawable/ic_launch1</item>
+        <item>@drawable/ic_launch1</item>
+    </array>
 
 </resources>

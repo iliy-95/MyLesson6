@@ -5,4 +5,8 @@
         android:id="@+id/action_iz"
         android:title="@string/iz"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_add"
+        android:title="@string/add_menu"
+        />
 </menu>

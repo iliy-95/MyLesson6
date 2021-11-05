@@ -13,7 +13,8 @@
     <string name="add">Калькулятор</string>
     <string name="about_developers" > dgdfgfg</string>
     <string name="ab">cкоро будет калькулятор</string>
-    <string name="iz">изменить</string>
+    <string name="iz">Очистить</string>
     <string name="exit">Exit</string>
     <string name="dop">Добавить</string>
+    <string name="add_menu">Добавить</string>
 </resources>

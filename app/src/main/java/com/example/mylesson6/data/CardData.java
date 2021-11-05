@@ -3,18 +3,22 @@ package com.example.mylesson6.data;
 public class CardData {
 
 
-    private final String title;
     private final String content;
+    private final int im;
     private final boolean like;
 
-    public CardData(String title, String description,  boolean like){
-        this.title = title;
+    public CardData(int im, String description,  boolean like){
+        this.im=im;
         this.content=description;
         this.like=like;
     }
-    public String getTitle() {
-        return title;
+
+
+
+    public int getIm() {
+        return im;
     }
+
     public String getContent() {
         return content;
     }

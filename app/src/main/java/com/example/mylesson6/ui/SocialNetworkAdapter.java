@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mylesson6.R;
@@ -85,6 +86,7 @@ private final CardsSource dataSource;
     // Этот класс хранит связь между данными и элементами View
     // Сложные данные могут потребовать несколько View на один пункт списка
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        private AppCompatImageView im;
 
          final TextView content;
         final CheckBox like;
@@ -93,7 +95,7 @@ private final CardsSource dataSource;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            //title = itemView.findViewById(R.id.textView);
+            im = itemView.findViewById(R.id.imageView);
             content = itemView.findViewById(R.id.edittex);
             like=itemView.findViewById(R.id.like);
 
@@ -110,6 +112,7 @@ private final CardsSource dataSource;
 
 
             content.setText(cardData.getContent());
+            im.setImageResource(cardData.getIm());
             like.setChecked(cardData.isLike());
 
         }
