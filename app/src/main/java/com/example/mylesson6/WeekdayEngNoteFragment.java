@@ -1,6 +1,5 @@
 package com.example.mylesson6;
 
-import android.app.Activity;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 
@@ -17,9 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-
-import java.text.BreakIterator;
 
 
 public class WeekdayEngNoteFragment extends Fragment {
@@ -68,7 +64,7 @@ final static String APP_PP = "index";
             int index = arguments.getInt(APP_PP);
             AppCompatEditText EditText = view.findViewById(R.id.editTextView);
             AppCompatTextView TextView = view.findViewById(R.id.textView);
-            TypedArray typedArray = getResources().obtainTypedArray(R.array.engw);
+            TypedArray typedArray = getResources().obtainTypedArray(R.array.content);
             //EditText.setText(typedArray.getResourceId(index, -1));
             TextView.setText(typedArray.getResourceId(index,-1));
             typedArray.recycle();

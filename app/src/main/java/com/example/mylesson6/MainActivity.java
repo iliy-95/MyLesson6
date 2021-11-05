@@ -1,18 +1,14 @@
 package com.example.mylesson6;
 
-import static com.example.mylesson6.R.drawable.ic_launcher_background;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,9 +26,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initToolbarAndDrawer();
+        addFragment(WeekdayFragment.newInstance());
 
-//создаю фрагмент
-    WeekdayFragment weekdayFragment = new WeekdayFragment();
+
+
+        //создаю фрагмент
+        WeekdayFragment weekdayFragment = new WeekdayFragment();
     //вызов FragmentManadger
         FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                 .beginTransaction();
@@ -56,6 +55,30 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         initDrawer(toolbar);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Fragment backStackFragment = getSupportFragmentManager()
+                .findFragmentById(R.id.fragment_container);
+        if (backStackFragment != null && backStackFragment instanceof WeekdayFragment) {
+            onBackPressed();
+        }
+    }
+
+
+    private void addFragment(Fragment fragment) {
+        //Получить менеджер фрагментов
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        // Открыть транзакцию
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        // Закрыть транзакцию
+        fragmentTransaction.commit();
+    }
+
 
     private void initDrawer(Toolbar toolbar){
         final DrawerLayout drawerLayout = findViewById(R.id.drawers);

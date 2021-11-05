@@ -5,16 +5,22 @@
       <map>
         <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/drawable/ic_baseline_add_task_24.xml" value="0.2064814814814815" />
         <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2064814814814815" />
+        <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/drawable/separatot.xml" value="0.2703125" />
         <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/layout-land/activity_main.xml" value="0.11022927689594356" />
+        <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/layout-land/conet_main.xml" value="0.10714285714285714" />
         <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/layout-land/fragment_land.xml" value="0.17604166666666668" />
         <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/layout/activitiy_main_land.xml" value="0.17300724637681159" />
         <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
+        <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/layout/app_bar.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/layout/conet_main.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/layout/content.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/layout/fragment_about.xml" value="0.2" />
         <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/layout/fragment_item_list.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/layout/fragment_note_eng_weekday.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/layout/fragment_weekday.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/layout/fragment_weekday_eng_note.xml" value="0.1793478260869565" />
         <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/layout/headr.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/layout/item.xml" value="0.2" />
         <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/menu/menu.xml" value="0.2" />
         <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/menu/menu_eng_weekday.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/lenovo/MyLesson6/app/src/main/res/menu/side_menu.xml" value="0.25025641025641027" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="wad">
-        <item>Понидельник</item>
+    <string-array name="title">
+        <item>Понедельник</item>
         <item>Вторник</item>
         <item>Среда</item>
         <item>Четверг</item>
@@ -9,7 +9,9 @@
         <item>Суббота</item>
         <item>Воскресение</item>
     </string-array>
-    <integer-array name="engw">
+
+
+    <integer-array name="content">
         <item>@string/monday</item>
         <item>@string/tuesday</item>
         <item>@string/wednesday</item>

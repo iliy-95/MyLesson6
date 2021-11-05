@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-
+import com.example.mylesson6.R;
 
 
 public class AboutFragment extends Fragment {
