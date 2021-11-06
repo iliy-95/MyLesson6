@@ -1,18 +1,18 @@
 package com.example.mylesson6;
 
 import static com.example.mylesson6.R.drawable.ic_launch1;
+import static com.example.mylesson6.R.drawable.separatot;
 
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,8 +28,6 @@ import com.example.mylesson6.data.CardData;
 import com.example.mylesson6.data.CardsSource;
 import com.example.mylesson6.data.CardsSourceImpl;
 import com.example.mylesson6.ui.SocialNetworkAdapter;
-
-import java.util.Objects;
 
 
 public class WeekdayFragment extends Fragment {
@@ -71,12 +69,10 @@ public class WeekdayFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_add:
-                data.addCardData(new CardData(
-                        ic_launch1,
+                data.addCardData(new CardData("Заголовок " + data.size(),
                         "Заметка " + data.size(),
-                                        false));
-
-
+                        ic_launch1,
+                        false));
                 adapter.notifyItemInserted(data.size() - 1);
                 recyclerView.scrollToPosition(data.size() - 1);
                 return true;
@@ -111,7 +107,7 @@ public class WeekdayFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // Установим адаптер
-         adapter = new SocialNetworkAdapter(data);
+         adapter = new SocialNetworkAdapter(data, this);
         recyclerView.setAdapter(adapter);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(),  LinearLayoutManager.VERTICAL);
@@ -128,14 +124,38 @@ public class WeekdayFragment extends Fragment {
                 Toast.makeText(getContext(), "Заметка " + position, Toast.LENGTH_SHORT).show();
             }
             });
-
-
-
-
-
-
     }
 
+    @Override
+    public void onCreateContextMenu( ContextMenu menu, View v,  ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        requireActivity().getMenuInflater().inflate(R.menu.con_menu,menu);
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        int position = adapter.getMenuPosition();
+        switch(item.getItemId()) {
+            case R.id.action_edit:
+
+                data.updateCardData(position,
+                        new CardData("Ваша заметка " ,
+                                data.getCardData(position).getContent(),
+                                data.getCardData(position).getIm(),
+                                false));
+                adapter.notifyItemChanged(position);
+
+                return true;
+            case R.id.action_delete:
+                data.deleteCardData(position);
+                adapter.notifyItemRemoved(position);
+                return true;
+
+
+        }
+        return super.onContextItemSelected(item);
+    }
 
 
 

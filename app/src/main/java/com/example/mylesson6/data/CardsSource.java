@@ -1,6 +1,7 @@
 package com.example.mylesson6.data;
 
 import android.content.Context;
+import android.view.MenuItem;
 
 public interface CardsSource {
 
@@ -11,6 +12,7 @@ public interface CardsSource {
         void updateCardData(int position, CardData cardData);
         void addCardData(CardData cardData);
         void clearCardData();
+
 
 
 }

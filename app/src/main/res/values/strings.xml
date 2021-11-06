@@ -17,4 +17,6 @@
     <string name="exit">Exit</string>
     <string name="dop">Добавить</string>
     <string name="add_menu">Добавить</string>
+    <string name="Edit">Отредактировать</string>
+    <string name="Delete">Удалить</string>
 </resources>

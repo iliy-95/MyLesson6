@@ -4,16 +4,26 @@ public class CardData {
 
 
     private final String content;
+   private final String s;
     private final int im;
     private final boolean like;
 
-    public CardData(int im, String description,  boolean like){
+
+
+
+
+    public CardData(String s, String content, int im, boolean like) {
         this.im=im;
-        this.content=description;
+        this.content=content;
+        this.s=s;
         this.like=like;
     }
 
 
+
+    public String getS() {
+        return s;
+    }
 
     public int getIm() {
         return im;

@@ -1,39 +1,44 @@
 package com.example.mylesson6.ui;
 
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mylesson6.R;
 import com.example.mylesson6.data.CardData;
 import com.example.mylesson6.data.CardsSource;
-import com.example.mylesson6.data.OnItemClickListener;
 
 
 public class SocialNetworkAdapter
         extends RecyclerView.Adapter<SocialNetworkAdapter.ViewHolder>{
-private final static String TAG = "SocialNetworkAdapter";
-private final CardsSource dataSource;
-    //private String[] dataSource;
+    private final static String TAG = "SocialNetworkAdapter";
+    private final CardsSource dataSource;
+    private final Fragment fragment;
     private static OnItemClickListener itemClickListener;
+    private int menuPosition;
 
 
+    public int getMenuPosition() {
+        return menuPosition;
+    }
 
 
     // Передаём в конструктор источник данных
     // В нашем случае это массив, но может быть и запрос к БД
-    public SocialNetworkAdapter(CardsSource dataSource) {
+    public SocialNetworkAdapter(CardsSource dataSource, Fragment fragment) {
 
         this.dataSource = dataSource;
+        this.fragment = fragment;
     }
 
     // Создать новый элемент пользовательского интерфейса
@@ -64,7 +69,7 @@ private final CardsSource dataSource;
 
     }
 
-    // Вернуть размер данных, вызывается менеджером
+
     @Override
     public int getItemCount() {
         return dataSource.size();
@@ -75,7 +80,7 @@ private final CardsSource dataSource;
         this.itemClickListener = itemClickListener;
     }
 
-    // Интерфейс для обработки нажатий, как в ListView
+
     public interface OnItemClickListener {
         void onItemClick(View view , int position);
     }
@@ -85,19 +90,23 @@ private final CardsSource dataSource;
 
     // Этот класс хранит связь между данными и элементами View
     // Сложные данные могут потребовать несколько View на один пункт списка
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private AppCompatImageView im;
-
+private final TextView s;
          final TextView content;
         final CheckBox like;
 
 
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull final View itemView) {
             super(itemView);
             im = itemView.findViewById(R.id.imageView);
+            s  = itemView.findViewById(R.id.zag);
             content = itemView.findViewById(R.id.edittex);
             like=itemView.findViewById(R.id.like);
+
+            registerForContextMenu(im);
+
 
             content.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -107,21 +116,49 @@ private final CardsSource dataSource;
                     }
                 }
             });
+
+            im.setOnLongClickListener(new View.OnLongClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                @Override
+                public boolean onLongClick(View v) {
+                    menuPosition = getLayoutPosition();
+                    im.showContextMenu(0, 0);
+                    return true;
+                }
+            });
+
+
+
         }
+
+
+        private  void registerForContextMenu(@NonNull View itemView) {
+            if (fragment != null){
+                itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        menuPosition = getLayoutPosition();
+                        return false;
+                    }
+                });
+            fragment.registerForContextMenu(itemView);
+        }
+        }
+
+
         public void setData(@NonNull CardData cardData) {
-
-
+            s.setText(cardData.getS());
             content.setText(cardData.getContent());
             im.setImageResource(cardData.getIm());
             like.setChecked(cardData.isLike());
 
         }
-
-
     }
 
+}
 
-    }
+
+
 
 
 

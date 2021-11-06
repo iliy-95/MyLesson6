@@ -12,6 +12,7 @@ public class CardsSourceImpl  implements CardsSource {
     private List<CardData> dataSource;
     private final Resources resources;    // ресурсы приложения
 
+
     public CardsSourceImpl(Resources resources) {
         dataSource = new ArrayList<>();
         this.resources = resources;
@@ -19,11 +20,11 @@ public class CardsSourceImpl  implements CardsSource {
 
 public CardsSourceImpl init() {
     dataSource = new ArrayList<>();
-//String[] title = resources.getStringArray(R.array.title);
+ String[] s = resources.getStringArray(R.array.content);
     String[] content = resources.getStringArray(R.array.title);
     int[] im = getImageArray();
     for (int i = 0; i < content.length; i++) {
-        dataSource.add(new CardData(im[i], content [i], false));
+        dataSource.add(new CardData( s[i],content [i], im[i], false));
     }
     return this;
 
