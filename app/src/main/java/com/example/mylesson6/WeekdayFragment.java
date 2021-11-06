@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +35,7 @@ public class WeekdayFragment extends Fragment {
     private static final String WEEKDAY_NOTES = "WeekdayNotes";
 
     boolean isLandScape;
+    private static  final int  MY_DEFAULT_DURATION = 1000;
     private CardsSource data;
     private RecyclerView recyclerView;
     private int currentPosition = 0;
@@ -69,12 +71,12 @@ public class WeekdayFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_add:
-                data.addCardData(new CardData("Заголовок " + data.size(),
+                data.addCardData(new CardData("Ваша заметка " + data.size(),
                         "Заметка " + data.size(),
                         ic_launch1,
                         false));
                 adapter.notifyItemInserted(data.size() - 1);
-                recyclerView.scrollToPosition(data.size() - 1);
+                recyclerView.smoothScrollToPosition(data.size() - 1);
                 return true;
             case R.id.action_iz:
                 data.clearCardData();
@@ -113,10 +115,15 @@ public class WeekdayFragment extends Fragment {
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(),  LinearLayoutManager.VERTICAL);
         itemDecoration.setDrawable(getResources().getDrawable(R.drawable.separatot, null));
         recyclerView.addItemDecoration(itemDecoration);
+        DefaultItemAnimator animator = new DefaultItemAnimator();
+        animator.setAddDuration(MY_DEFAULT_DURATION);
+        animator.setRemoveDuration(MY_DEFAULT_DURATION);
+        animator.setChangeDuration(MY_DEFAULT_DURATION);
+        recyclerView.setItemAnimator(animator);
 
 
 
-        // Установим слушателя
+
         adapter.SetOnItemClickListener(new SocialNetworkAdapter.OnItemClickListener() {
             @SuppressLint("DefaultLocale")
             @Override
