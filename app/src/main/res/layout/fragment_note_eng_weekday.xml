@@ -7,7 +7,7 @@
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
-    tools:context="WeekdayEngNoteFragment">
+    tools:context=".ui.WeekdayEngNoteFragment">
 
 
     <androidx.appcompat.widget.AppCompatTextView

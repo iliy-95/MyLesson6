@@ -1,4 +1,4 @@
-package com.example.mylesson6;
+package com.example.mylesson6.ui;
 
 
 import android.os.Bundle;

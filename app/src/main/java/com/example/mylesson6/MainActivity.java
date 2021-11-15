@@ -1,23 +1,33 @@
 package com.example.mylesson6;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+
+import com.example.mylesson6.observe.Publisher;
+import com.example.mylesson6.ui.AboutFragment;
+import com.example.mylesson6.ui.WeekdayEngNoteFragment;
+import com.example.mylesson6.ui.WeekdayFragment;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Navigation navigation ;
+    private final Publisher publisher = new Publisher();
 
 
 
@@ -26,13 +36,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initToolbarAndDrawer();
-        addFragment(WeekdayFragment.newInstance());
+        navigation = new Navigation(getSupportFragmentManager());
+        getNavigation().addFragment(WeekdayFragment.newInstance(), true);
+
+
+
+
+
 
 
 
         //создаю фрагмент
         WeekdayFragment weekdayFragment = new WeekdayFragment();
-    //вызов FragmentManadger
+        //вызов FragmentManadger
         FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                 .beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, weekdayFragment);
@@ -50,10 +66,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
+
+
+
+
     private void initToolbarAndDrawer() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initDrawer(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
     }
 
     @Override
@@ -62,22 +87,27 @@ public class MainActivity extends AppCompatActivity {
 
         Fragment backStackFragment = getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_container);
-        if (backStackFragment != null && backStackFragment instanceof WeekdayFragment) {
+        if (backStackFragment instanceof WeekdayFragment) {
             onBackPressed();
         }
     }
 
 
-    private void addFragment(Fragment fragment) {
-        //Получить менеджер фрагментов
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        // Открыть транзакцию
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.addToBackStack(null);
-        // Закрыть транзакцию
-        fragmentTransaction.commit();
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
+
+    public Navigation getNavigation() {
+        return navigation;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
 
 
     private void initDrawer(Toolbar toolbar){
@@ -100,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                         drawerLayout.closeDrawers();
                         return (true);
                     case R.id.eexit_said:
+
                         finish();
                         return (true);
                 }
@@ -150,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
 }

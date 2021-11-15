@@ -1,4 +1,4 @@
-package com.example.mylesson6;
+package com.example.mylesson6.ui;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.example.mylesson6.R;
 
 
 public class WeekdayEngNoteFragment extends Fragment {

@@ -18,6 +18,8 @@ import com.example.mylesson6.R;
 import com.example.mylesson6.data.CardData;
 import com.example.mylesson6.data.CardsSource;
 
+import java.text.SimpleDateFormat;
+
 
 public class SocialNetworkAdapter
         extends RecyclerView.Adapter<SocialNetworkAdapter.ViewHolder>{
@@ -92,8 +94,9 @@ public class SocialNetworkAdapter
     // Сложные данные могут потребовать несколько View на один пункт списка
     public class ViewHolder extends RecyclerView.ViewHolder {
         private AppCompatImageView im;
-private final TextView s;
-         final TextView content;
+        private TextView date;
+        private final TextView s;
+        final TextView content;
         final CheckBox like;
 
 
@@ -104,6 +107,7 @@ private final TextView s;
             s  = itemView.findViewById(R.id.zag);
             content = itemView.findViewById(R.id.edittex);
             like=itemView.findViewById(R.id.like);
+            date = itemView.findViewById(R.id.date);
 
             registerForContextMenu(im);
 
@@ -151,6 +155,7 @@ private final TextView s;
             content.setText(cardData.getContent());
             im.setImageResource(cardData.getIm());
             like.setChecked(cardData.isLike());
+            date.setText(new SimpleDateFormat("dd-MM-yy").format(cardData.getDate()));
 
         }
     }

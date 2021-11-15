@@ -19,4 +19,7 @@
     <string name="add_menu">Добавить</string>
     <string name="Edit">Отредактировать</string>
     <string name="Delete">Удалить</string>
+    <string name="ops">Описание</string>
+    <string name="zag">Заголовок</string>
+    <string name="DATA">Дата и время</string>
 </resources>

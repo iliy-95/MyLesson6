@@ -1,11 +1,11 @@
-package com.example.mylesson6;
-
-import static com.example.mylesson6.R.drawable.ic_launch1;
-import static com.example.mylesson6.R.drawable.separatot;
+package com.example.mylesson6.ui;
 
 import android.annotation.SuppressLint;
+
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -25,10 +26,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mylesson6.MainActivity;
+import com.example.mylesson6.Navigation;
+import com.example.mylesson6.R;
 import com.example.mylesson6.data.CardData;
 import com.example.mylesson6.data.CardsSource;
 import com.example.mylesson6.data.CardsSourceImpl;
-import com.example.mylesson6.ui.SocialNetworkAdapter;
+import com.example.mylesson6.observe.Observer;
+import com.example.mylesson6.observe.Publisher;
 
 
 public class WeekdayFragment extends Fragment {
@@ -40,21 +45,50 @@ public class WeekdayFragment extends Fragment {
     private RecyclerView recyclerView;
     private int currentPosition = 0;
     private SocialNetworkAdapter adapter;
+    private Navigation navigation;
+    private Publisher publisher;
+    private boolean moveToLastPosition;
+
 
 
     public static WeekdayFragment newInstance() {
-        return new WeekdayFragment();
+         return new WeekdayFragment();
     }
+
+
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        data = new CardsSourceImpl(getResources()).init();
+    }
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        MainActivity activity = (MainActivity)context;
+        navigation = activity.getNavigation();
+        publisher = activity.getPublisher();
+    }
+
+    @Override
+    public void onDetach() {
+        navigation = null;
+        publisher = null;
+        super.onDetach();
+    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
        View view = inflater.inflate(R.layout.fragment_weekday, container, false);
-       // String[] data = getResources().getStringArray(R.array.wad);
-        // Получим источник данных для списка
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-         data = new CardsSourceImpl(getResources()).init();
+         //data = new CardsSourceImpl(getResources()).init();
         //initRecyclerView(recyclerView, data,view);
         initView(view);
         setHasOptionsMenu(true);
@@ -71,12 +105,21 @@ public class WeekdayFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_add:
-                data.addCardData(new CardData("Ваша заметка " + data.size(),
-                        "Заметка " + data.size(),
-                        ic_launch1,
-                        false));
-                adapter.notifyItemInserted(data.size() - 1);
-                recyclerView.smoothScrollToPosition(data.size() - 1);
+
+
+                navigation.addFragment(CardFragment.newInstance(), true);
+                publisher.subscribe(new Observer() {
+                    @Override
+                    public void updateCardData(CardData cardData) {
+                        data.addCardData(cardData);
+                        adapter.notifyItemInserted(data.size() - 1);
+                        // это сигнал, чтобы вызванный метод onCreateView
+                        // перепрыгнул на конец списка
+                        moveToLastPosition = true;
+                    }
+                });
+
+
                 return true;
             case R.id.action_iz:
                 data.clearCardData();
@@ -121,6 +164,10 @@ public class WeekdayFragment extends Fragment {
         animator.setChangeDuration(MY_DEFAULT_DURATION);
         recyclerView.setItemAnimator(animator);
 
+        if (moveToLastPosition){
+            recyclerView.smoothScrollToPosition(data.size() - 1);
+            moveToLastPosition = false;
+        }
 
 
 
@@ -146,18 +193,27 @@ public class WeekdayFragment extends Fragment {
         switch(item.getItemId()) {
             case R.id.action_edit:
 
-                data.updateCardData(position,
+                /*data.updateCardData(position,
                         new CardData("Ваша заметка " ,
                                 data.getCardData(position).getContent(),
                                 data.getCardData(position).getIm(),
                                 false));
-                adapter.notifyItemChanged(position);
+                adapter.notifyItemChanged(position);*/
+                navigation.addFragment(CardFragment.newInstance(data.getCardData(position)), true);
+                publisher.subscribe(cardData -> {
+                    data.updateCardData(position, cardData);
+                    adapter.notifyItemChanged(position);
+                });
+
+
+
 
                 return true;
             case R.id.action_delete:
                 data.deleteCardData(position);
                 adapter.notifyItemRemoved(position);
                 return true;
+
 
 
         }
@@ -204,7 +260,6 @@ private void showPortDay(int index){
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.commit();
 }
-
 
 
 
