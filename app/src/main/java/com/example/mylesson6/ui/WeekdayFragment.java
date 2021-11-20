@@ -32,6 +32,7 @@ import com.example.mylesson6.R;
 import com.example.mylesson6.data.CardData;
 import com.example.mylesson6.data.CardsSource;
 import com.example.mylesson6.data.CardsSourceImpl;
+import com.example.mylesson6.data.CardsSourceResponse;
 import com.example.mylesson6.observe.Observer;
 import com.example.mylesson6.observe.Publisher;
 
@@ -61,7 +62,7 @@ public class WeekdayFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        data = new CardsSourceImpl(getResources()).init();
+
     }
 
 
@@ -88,10 +89,16 @@ public class WeekdayFragment extends Fragment {
 
        View view = inflater.inflate(R.layout.fragment_weekday, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
-         //data = new CardsSourceImpl(getResources()).init();
         //initRecyclerView(recyclerView, data,view);
         initView(view);
         setHasOptionsMenu(true);
+        data = new CardsSourceImpl(getResources()).init(new CardsSourceResponse() {
+            @Override
+            public void initialized(CardsSource cardsSource) {
+                adapter.notifyDataSetChanged();
+            }
+        });
+        adapter.setDataSource(data);
         return view;
     }
 
@@ -134,12 +141,11 @@ public class WeekdayFragment extends Fragment {
 
     private void initView(View view) {
         recyclerView = view.findViewById(R.id.recycler_view);
-        // Получим источник данных для списка
-        data = new CardsSourceImpl(getResources()).init();
+
         initRecyclerView();
     }
 
-
+// с 2часа 5 мин
 
 
 
@@ -152,7 +158,7 @@ public class WeekdayFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // Установим адаптер
-         adapter = new SocialNetworkAdapter(data, this);
+         adapter = new SocialNetworkAdapter( this);
         recyclerView.setAdapter(adapter);
 
         DividerItemDecoration itemDecoration = new DividerItemDecoration(getContext(),  LinearLayoutManager.VERTICAL);

@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.example.mylesson6.MainActivity;
 import com.example.mylesson6.R;
 import com.example.mylesson6.data.CardData;
+import com.example.mylesson6.data.ImIndexConverter;
 import com.example.mylesson6.observe.Publisher;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -118,16 +119,16 @@ public class CardFragment extends Fragment {
         String content = Objects.requireNonNull(this.content.getText()).toString();
         Date date = getDateFromDatePicker();
 
-        int im;
-        boolean like;
         if (cardData != null){
-            im = cardData.getIm();
-            like = cardData.isLike();
+           cardData.setS(s);
+           cardData.setContent(content);
+           cardData.setDate(date);
+           return cardData;
         } else {
-            im = R.drawable.ic_launch1;
-            like = false;
+            int im = ImIndexConverter.getImByIndex(ImIndexConverter.randomImIndex());
+            return new CardData(s, content, im, false, date);
         }
-        return new CardData(s, content, im, like, date);
+
     }
 
 

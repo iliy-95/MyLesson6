@@ -8,13 +8,21 @@ import java.util.Date;
 public class CardData implements Parcelable {
 
 
+
+    private String id;
     private String content;
     private String s;
     private int im;
     private boolean like;
     private Date date;
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
 
     public CardData(String s, String content, int im, boolean like,Date date) {
@@ -45,7 +53,7 @@ public class CardData implements Parcelable {
         }
     };
 
-   /* public void setDate(Date date) {
+    public void setDate(Date date) {
         this.date = date;
     }
     public void setS(String s) {
@@ -59,7 +67,7 @@ public class CardData implements Parcelable {
     }
     public void setIm(int im) {
         this.im = im;
-    }*/
+    }
 
     public Date getDate() {
         return date;

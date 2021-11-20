@@ -19,13 +19,16 @@ public class CardsSourceImpl  implements CardsSource {
         this.resources = resources;
     }
 
-public CardsSourceImpl init() {
+    public CardsSource init(CardsSourceResponse cardsSourceResponse) {
     dataSource = new ArrayList<>();
  String[] s = resources.getStringArray(R.array.content);
     String[] content = resources.getStringArray(R.array.title);
     int[] im = getImageArray();
     for (int i = 0; i < content.length; i++) {
         dataSource.add(new CardData( s[i],content [i], im[i], false, Calendar.getInstance().getTime()));
+    }
+    if (cardsSourceResponse!=null){
+        cardsSourceResponse.initialized(this);
     }
     return this;
 
@@ -41,6 +44,8 @@ public CardsSourceImpl init() {
         return answer;
 
     }
+
+
 
     @Override
     public CardData getCardData(int position) {

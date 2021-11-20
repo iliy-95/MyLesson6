@@ -5,7 +5,7 @@ import android.view.MenuItem;
 
 public interface CardsSource {
 
-
+CardsSource init(CardsSourceResponse cardsSourceResponse);
         CardData getCardData(int position);
         int size();
         void deleteCardData(int position);

@@ -9,7 +9,7 @@ public class ImIndexConverter {
     private static Random rnd = new Random();
     private static Object syncObj = new Object();
 
-    private static int[] picIndex = {
+    private static int[] imIndex = {
             R.drawable.ic_launch1,
             R.drawable.ic_launch1,
             R.drawable.ic_launch1,
@@ -21,20 +21,20 @@ public class ImIndexConverter {
 
     public static int randomImIndex(){
         synchronized (syncObj){
-            return rnd.nextInt(picIndex.length);
+            return rnd.nextInt(imIndex.length);
         }
     }
 
     public static int getImByIndex(int index){
-        if (index < 0 || index >= picIndex.length){
+        if (index < 0 || index >= imIndex.length){
             index = 0;
         }
-        return picIndex[index];
+        return imIndex[index];
     }
 
-    public static int getIndexByIm(int picture){
-        for(int i = 0; i < picIndex.length; i++){
-            if (picIndex[i] == picture){
+    public static int getIndexByIm(int ym){
+        for(int i = 0; i < imIndex.length; i++){
+            if (imIndex[i] == ym){
                 return i;
             }
         }

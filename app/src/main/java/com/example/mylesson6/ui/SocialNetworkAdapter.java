@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 public class SocialNetworkAdapter
         extends RecyclerView.Adapter<SocialNetworkAdapter.ViewHolder>{
     private final static String TAG = "SocialNetworkAdapter";
-    private final CardsSource dataSource;
+    private  CardsSource dataSource ;
     private final Fragment fragment;
     private static OnItemClickListener itemClickListener;
     private int menuPosition;
@@ -34,12 +34,13 @@ public class SocialNetworkAdapter
         return menuPosition;
     }
 
-
+    public void setDataSource(CardsSource dataSource) {
+        this.dataSource = dataSource;
+        notifyDataSetChanged();
+    }
     // Передаём в конструктор источник данных
     // В нашем случае это массив, но может быть и запрос к БД
-    public SocialNetworkAdapter(CardsSource dataSource, Fragment fragment) {
-
-        this.dataSource = dataSource;
+    public SocialNetworkAdapter( Fragment fragment) {
         this.fragment = fragment;
     }
 
